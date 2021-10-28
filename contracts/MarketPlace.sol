@@ -15,9 +15,10 @@ contract MarketPlace {
     Order[] public sales;
     Order[] public bids;
     
-    constructor() {
-    }
-    
+    /**
+    * @notice Get array of waiting bids
+    * @param _address address of the NFT
+    **/
     function getCurrentBids(address _address) public view returns(Order[] memory) {
         Order[] memory specifiedBids = new Order[](bids.length);
         uint256 bidCounter;
@@ -33,6 +34,10 @@ contract MarketPlace {
         return specifiedBids;
     }
     
+    /**
+    * @notice Get array of waiting sales
+    * @param _address address of the NFT
+    **/
     function getCurrentSales(address _address) public view returns(Order[] memory) {
         Order[] memory specifiedSales = new Order[](sales.length);
         uint256 salesCounter;
@@ -49,7 +54,11 @@ contract MarketPlace {
     }
     
     /**
-    * Buy
+    * @notice Buy
+    * @param _nft address of the NFT
+    * @param _tokensId tokens item id in NFT
+    * @param _price price of the one NFT token
+    * @param _amount amount of NFT tokens 
     **/
     function offer(IERC1155 _nft, uint256 _tokensId, uint256 _price, uint256 _amount) external payable {
        require(_amount > 0, "Token amount should be more than zero");
@@ -100,8 +109,12 @@ contract MarketPlace {
     }
     
     /**
-    * Sale
-    **/ 
+    * @notice Sale
+    * @param _nft address of the NFT
+    * @param _tokensId tokens item id in NFT
+    * @param _price price of the one NFT token
+    * @param _amount amount of NFT tokens 
+    **/
     function listing(IERC1155 _nft, uint256 _tokensId, uint256 _price, uint256 _amount) external {
       require(_amount > 0, "Token amount should be more than zero");
       require(_price > 0, "Price should be more than zero");
